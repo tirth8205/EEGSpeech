@@ -15,7 +15,7 @@ from eegspeech.models.utils import plot_training_history
 
 # Configure page
 st.set_page_config(
-    page_title="🧠 EEG Speech Decoder",
+    page_title="EEG Speech Decoder",
     page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -158,7 +158,7 @@ def main():
         st.subheader("Training History")
         try:
             img = Image.open('training_history.png')
-            st.image(img, caption="Loss and Accuracy Curves", use_column_width=True)
+            st.image(img, caption="Loss and Accuracy Curves", use_container_width=True)
         except FileNotFoundError:
             st.info("Training history not available. Run training first.")
 
@@ -166,13 +166,13 @@ def main():
         st.subheader("Brain Activation Map")
         # Topographic map
         topo_img = plot_topographic_map(st.session_state.eeg_data)
-        st.image(topo_img, caption="Topographic EEG Activity", use_column_width=True)
+        st.image(topo_img, caption="Topographic EEG Activity", use_container_width=True)
         
         # Confusion matrix
         st.subheader("Model Performance")
         try:
             img = Image.open('confusion_matrix.png')
-            st.image(img, caption="Confusion Matrix", use_column_width=True)
+            st.image(img, caption="Confusion Matrix", use_container_width=True)
         except FileNotFoundError:
             st.info("Confusion matrix not available. Run training first.")
 
