@@ -55,8 +55,8 @@ def main():
     visualize_eeg_and_predictions(model, test_loader, class_names)
     
     # Save model to root directory
-    torch.save(model.state_dict(), 'eeg_speech_classifier.pth')
-    print("\nModel saved to 'eeg_speech_classifier.pth'")
+    torch.save(model.state_dict(), os.path.join(os.path.dirname(__file__), '../../../outputs/eeg_speech_classifier.pth'))
+    print("\nModel saved to os.path.join(os.path.dirname(__file__), '../../../outputs/eeg_speech_classifier.pth')")
 
 if __name__ == "__main__":
     main()
