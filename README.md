@@ -37,7 +37,8 @@ eegspeech/
 ├── requirements.txt      # Dependencies
 ├── setup.py             # Package configuration
 ├── README.md            # Documentation
-└── LICENSE              # MIT License
+├── LICENSE              # MIT License
+├── CONTRIBUTING.md      # Contribution guidelines
 ```
 
 ## 🚀 Installation
@@ -50,12 +51,12 @@ eegspeech/
 ### Local Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/eegspeech.git
-   cd eegspeech
+   git clone https://github.com/tirth8205/EEGSpeech.git
+   cd EEGSpeech
    ```
 2. Create and activate a virtual environment:
    ```bash
-   python -m venv .venv
+   python3.10 -m venv .venv
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 3. Install dependencies:
@@ -74,9 +75,9 @@ eegspeech/
    docker run -p 8501:8501 eegspeech
    ```
    Access at `http://localhost:8501`.
-3. Run CLI commands:
+3. Run CLI commands (e.g., training with persistent model storage):
    ```bash
-   docker run eegspeech eegspeech train --epochs 50
+   docker run -v $(pwd)/models:/app/models eegspeech eegspeech train --epochs 50 --output models/eeg_speech_classifier.pth
    ```
 
 ## 🧠 Usage
@@ -93,11 +94,15 @@ eegspeech train --data-type real --file-path path/to/eeg.edf --output models/mod
 
 **Example Output**:
 ```
-Fold 1/5
-Epoch 1/50 | Train Loss: 2.079 | Val Loss: 1.845 | Val Acc: 0.325 | Val F1: 0.310 | Time: 12.3s
+Training with lr=0.001, batch_size=64
 ...
-Test Accuracy: 0.892 | Precision: 0.895 | Recall: 0.892 | F1: 0.893
-Model saved to models/model.pth
+Early stopping at epoch 16
+Test Accuracy: 0.9267
+Test Precision: 0.9295
+Test Recall: 0.9267
+Test F1-Score: 0.9253
+Model saved to eeg_speech_classifier.pth
+Best parameters: lr=0.001, batch_size=64
 ```
 
 ### Running the Streamlit App
@@ -149,7 +154,7 @@ eegspeech analyze --grad-cam
 - Support real-time EEG streaming.
 
 ## 📚 References
-- Jayalath, D., Landau, G., Shillingford, B., Woolrich, M., & Parker Jones, O. (2024). "The Brain's Bitter Lesson: Scaling Speech Decoding With Self-Supervised Learning." *arXiv preprint arXiv:2406.04328*. https://arxiv.org/abs/2406.04328[](https://www.researchgate.net/publication/381227083_The_Brain%27s_Bitter_Lesson_Scaling_Speech_Decoding_With_Self-Supervised_Learning)
+- Jayalath, D., Landau, G., Shillingford, B., Woolrich, M., & Parker Jones, O. (2024). "The Brain's Bitter Lesson: Scaling Speech Decoding With Self-Supervised Learning." *arXiv preprint arXiv:2406.04328*. https://arxiv.org/abs/2406.04328
 - MNE-Python for EEG processing: https://mne.tools
 - PyTorch for deep learning: https://pytorch.org
 - Streamlit for UI: https://streamlit.io
@@ -159,7 +164,3 @@ See `CONTRIBUTING.md` for guidelines. Issues and PRs welcome on GitHub.
 
 ## 📜 License
 MIT License. See `LICENSE` for details.
-
-## 📸 Screenshots
-*(Add screenshots of the Streamlit app, e.g., topographic map or Grad-CAM, via GitHub-hosted images.)*
-```
