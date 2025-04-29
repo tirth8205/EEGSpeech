@@ -1,6 +1,46 @@
+# Python
 __pycache__/
 *.pyc
-*.pth
-*.png
-outputs/
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
 .venv/
+venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS system files
+.DS_Store
+
+# Project-specific files
+# Model files
+*.pth
+models/
+
+# Generated plots and outputs
+*.png
+*.svg
+predictions.txt
+temp.edf
+
+# Dependency lock files (if you use them)
+Pipfile.lock
+poetry.lock
+
+# Testing and coverage
+.pytest_cache/
+coverage/
+*.cover
+*.coverage
+
+# Logs
+*.log

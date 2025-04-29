@@ -102,10 +102,21 @@ def main():
         if st.session_state.data_type == 'synthetic':
             st.write(f"True phoneme: **{['a','e','i','o','u','p','t','k'][st.session_state.true_class]}**")
         
-        # Channel and time selection
-        channels = st.multiselect("Select Channels", 
-                                [f'Ch {i}' for i in range(14)], 
-                                default=[f'Ch {i}' for i in range(4)])
+        # Channel selection with descriptive labels
+        st.subheader("Channel Selection")
+        st.markdown("""
+        Select EEG channels to visualize their signals. Channels correspond to scalp locations:
+        - **Frontal (F)**: Channels 0–3 (Fz, F3, F4, Cz) – Associated with speech planning.
+        - **Parietal (P)**: Channels 4–6 (Pz, P3, P4) – Involved in sensory integration.
+        - **Temporal (T)**: Channels 7–10 (T3, T4, T5, T6) – Linked to auditory processing.
+        - **Occipital (O)**: Channel 13 (Oz) – Related to visual processing.
+        """)
+        ch_names = ['Fz (Ch 0)', 'F3 (Ch 1)', 'F4 (Ch 2)', 'Cz (Ch 3)', 'C3 (Ch 4)', 'C4 (Ch 5)', 
+                    'Pz (Ch 6)', 'P3 (Ch 7)', 'P4 (Ch 8)', 'T3 (Ch 9)', 'T4 (Ch 10)', 'T5 (Ch 11)', 
+                    'T6 (Ch 12)', 'Oz (Ch 13)']
+        channels = st.multiselect("Select Channels to Visualize", 
+                                 ch_names, 
+                                 default=['Fz (Ch 0)', 'F3 (Ch 1)', 'F4 (Ch 2)', 'Cz (Ch 3)'])
         time_range = st.slider("Time Range (ms)", 0, 1000, (0, 1000), step=10)
 
     # Main display columns
@@ -115,7 +126,7 @@ def main():
         st.subheader("Neural Signals")
         # Plot selected channels
         fig = go.Figure()
-        channel_indices = [int(ch.split()[1]) for ch in channels]
+        channel_indices = [int(ch.split('Ch ')[1].strip(')')) for ch in channels]
         start_idx, end_idx = int(time_range[0] * 1), int(time_range[1] * 1)
         for ch in channel_indices:
             fig.add_trace(go.Scatter(

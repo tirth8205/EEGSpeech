@@ -174,6 +174,7 @@ def train_cli(epochs=50, batch_size=32, lr=0.001, output_path='models/eeg_speech
     """Command-line training interface with k-fold and hyperparameter tuning"""
     from .model import EEGSpeechClassifier
     from .dataset import load_eeg_data, prepare_data_loaders
+    from .utils import plot_training_history  # Import plotting function
     
     # Set seeds
     np.random.seed(42)
@@ -191,6 +192,7 @@ def train_cli(epochs=50, batch_size=32, lr=0.001, output_path='models/eeg_speech
     best_metrics = None
     best_model = None
     best_params = None
+    best_history = None  # Store history of the best model
     
     for lr in lrs:
         for bs in batch_sizes:
@@ -213,6 +215,12 @@ def train_cli(epochs=50, batch_size=32, lr=0.001, output_path='models/eeg_speech
                 best_metrics = metrics
                 best_model = model
                 best_params = {'lr': lr, 'batch_size': bs}
+                best_history = history  # Save history of the best model
+    
+    # Plot training history for the best model
+    if best_history:
+        plot_training_history(best_history)
+        print("Training history plot saved as training_history.png")
     
     # Save best model
     if best_model:
