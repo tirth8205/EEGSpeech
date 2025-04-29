@@ -6,9 +6,9 @@ class EEGSpeechClassifier(nn.Module):
     def __init__(self, n_channels, n_classes, time_points=1000):
         super(EEGSpeechClassifier, self).__init__()
         
-        # More aggressive pooling = fewer parameters
-        pool1_output = time_points // 4
-        self.feature_dim = 16 * pool1_output
+        # Calculate feature dimension after two pooling layers
+        pooled_length = time_points // 16  # Two MaxPool1d with stride=4
+        self.feature_dim = 16 * pooled_length
         
         # Smaller feature extractor
         self.feature_extractor = nn.Sequential(
