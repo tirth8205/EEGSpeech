@@ -3,11 +3,11 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 
-# Import from project modules
-from models.model import EEGSpeechClassifier
-from models.dataset import create_synthetic_eeg_data, prepare_data_loaders
-from models.train import train_model, evaluate_model
-from models.utils import plot_training_history, visualize_eeg_and_predictions, calculate_model_size
+# Import from project modules (package-relative)
+from EEGSpeech.models.model import EEGSpeechClassifier
+from EEGSpeech.models.dataset import create_synthetic_eeg_data, prepare_data_loaders
+from EEGSpeech.models.train import train_model, evaluate_model
+from EEGSpeech.models.utils import plot_training_history, visualize_eeg_and_predictions, calculate_model_size
 
 def main():
     # Set random seed for reproducibility
@@ -54,9 +54,9 @@ def main():
     print("\nVisualizing EEG predictions...")
     visualize_eeg_and_predictions(model, test_loader, class_names)
     
-    # Save model
-    torch.save(model.state_dict(), 'models/eeg_speech_classifier.pth')
-    print("\nModel saved to 'models/eeg_speech_classifier.pth'")
+    # Save model to root directory
+    torch.save(model.state_dict(), 'eeg_speech_classifier.pth')
+    print("\nModel saved to 'eeg_speech_classifier.pth'")
 
 if __name__ == "__main__":
     main()
