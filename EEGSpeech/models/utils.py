@@ -23,7 +23,7 @@ def plot_training_history(history):
     
     plt.tight_layout()
     plt.savefig('training_history.png')
-    plt.close(fig)  # Close the figure instead of showing it
+    plt.close(fig)
     print("Training history plot saved to 'training_history.png'")
 
 def visualize_eeg_and_predictions(model, test_loader, class_names, num_samples=3):
@@ -65,7 +65,7 @@ def visualize_eeg_and_predictions(model, test_loader, class_names, num_samples=3
     
     plt.tight_layout()
     plt.savefig('eeg_predictions.png')
-    plt.close(fig)  # Close the figure instead of showing it
+    plt.close(fig)
     print("EEG predictions plot saved to 'eeg_predictions.png'")
 
 def calculate_model_size(model):

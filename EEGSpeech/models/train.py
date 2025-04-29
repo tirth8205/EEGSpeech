@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import time
+import os
+import numpy as np
 
 def train_model(model, train_loader, val_loader, criterion, optimizer, num_epochs=10, patience=3):
     """Train the model with early stopping"""
@@ -80,7 +82,6 @@ def train_model(model, train_loader, val_loader, criterion, optimizer, num_epoch
             patience_counter += 1
             if patience_counter >= patience:
                 print(f"Early stopping at epoch {epoch+1}")
-                # Restore best model
                 model.load_state_dict(best_model_state)
                 break
     
@@ -105,5 +106,34 @@ def evaluate_model(model, test_loader):
     
     accuracy = correct / total
     print(f'Test Accuracy: {accuracy:.4f}')
-    
     return accuracy
+
+def train_cli(epochs=10, batch_size=32, learning_rate=0.001, output_path="models/eeg_speech_classifier.pth"):
+    """CLI training function"""
+    from .model import EEGSpeechClassifier
+    from .dataset import create_synthetic_eeg_data, prepare_data_loaders
+    
+    # Set random seeds
+    np.random.seed(42)
+    torch.manual_seed(42)
+    
+    # Generate data
+    X, y, class_names = create_synthetic_eeg_data()
+    train_loader, val_loader, test_loader = prepare_data_loaders(X, y, batch_size)
+    
+    # Initialize model
+    model = EEGSpeechClassifier(X.shape[1], len(class_names))
+    
+    # Training setup
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=learning_rate, weight_decay=0.001)
+    
+    # Train model
+    history = train_model(model, train_loader, val_loader, criterion, optimizer, epochs)
+    
+    # Save model
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    torch.save(model.state_dict(), output_path)
+    print(f"Model saved to {output_path}")
+    
+    return model, history
