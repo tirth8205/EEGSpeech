@@ -164,3 +164,11 @@ See `CONTRIBUTING.md` for guidelines. Issues and PRs welcome on GitHub.
 
 ## 📜 License
 MIT License. See `LICENSE` for details.
+
+## 📸 Screenshots
+
+Below are screenshots of the Streamlit app showcasing the EEG speech decoding interface:
+
+![Streamlit App - Main Interface](https://raw.githubusercontent.com/tirth8205/EEGSpeech/main/screenshot/Screenshot%202025-04-29%20at%2022.18.48.png)
+
+![Streamlit App - Additional View](https://raw.githubusercontent.com/tirth8205/EEGSpeech/main/screenshot/Screenshot%202025-04-29%20at%2022.19.22.png)
