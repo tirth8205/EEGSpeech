@@ -9,7 +9,8 @@ import os
 class EEGDataset(Dataset):
     """PyTorch Dataset for EEG speech data"""
     def __init__(self, X, y, augment=False):
-        self.X = torch.FloatTensor(X)
+        # Store X as a NumPy array for augmentation, convert to tensor later
+        self.X = X  # Keep as NumPy array
         self.y = torch.LongTensor(y)
         self.augment = augment
     
@@ -17,13 +18,14 @@ class EEGDataset(Dataset):
         return len(self.y)
     
     def __getitem__(self, idx):
-        x = self.X[idx]
+        x = self.X[idx].copy()  # Create a copy to avoid modifying the original
         if self.augment:
             x = self._augment_data(x)
-        return x, self.y[idx]
+        # Convert to tensor after augmentation
+        return torch.FloatTensor(x), self.y[idx]
     
     def _augment_data(self, x):
-        """Apply data augmentation: noise, scaling, time warping"""
+        """Apply data augmentation: noise, scaling, time warping on NumPy array"""
         # Add Gaussian noise
         noise = np.random.normal(0, 0.1, x.shape)
         x = x + noise
@@ -34,9 +36,16 @@ class EEGDataset(Dataset):
         
         # Time warping (stretch/compress)
         if np.random.rand() > 0.5:
-            x = signal.resample(x, int(x.shape[-1] * np.random.uniform(0.9, 1.1)), axis=-1)
-            if x.shape[-1] != self.X.shape[-1]:
-                x = np.pad(x, ((0, 0), (0, self.X.shape[-1] - x.shape[-1])), mode='constant')
+            new_length = int(x.shape[-1] * np.random.uniform(0.9, 1.1))
+            x = signal.resample(x, new_length, axis=-1)
+            # Ensure the length matches self.X.shape[-1]
+            original_length = self.X.shape[-1]
+            if new_length < original_length:
+                # Pad if shorter
+                x = np.pad(x, ((0, 0), (0, original_length - new_length)), mode='constant')
+            elif new_length > original_length:
+                # Trim if longer
+                x = x[:, :original_length]
         
         return x.astype(np.float32)
 
