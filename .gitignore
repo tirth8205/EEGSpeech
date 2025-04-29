@@ -26,9 +26,10 @@ venv/
 *.pth
 models/
 
-# Generated plots and outputs
+# Generated plots and outputs (except screenshots)
 *.png
 *.svg
+!screenshot/*.png  # Allow PNG files in screenshot/ directory
 predictions.txt
 temp.edf
 
