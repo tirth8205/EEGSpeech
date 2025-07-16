@@ -120,8 +120,8 @@ def preprocess_real_eeg(file_path, sfreq=1000, n_channels=14, time_points=1000):
             X[i, :len(channels), :] = data[:len(channels), start:end]
         
         # Placeholder labels (to be replaced with real annotations)
-        y = np.zeros(n_samples, dtype=int)  # Dummy labels for demo
-        classes = ['unknown']
+        y = np.random.randint(0, 8, n_samples)  # Random labels for demo
+        classes = ['a', 'e', 'i', 'o', 'u', 'p', 't', 'k']
         
         return X, y, classes
     except Exception as e:

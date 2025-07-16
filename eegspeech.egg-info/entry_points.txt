@@ -1,2 +1,3 @@
 [console_scripts]
 eegspeech = eegspeech.app.cli:main
+eegspeech-healthcare = eegspeech.app.healthcare_cli:main

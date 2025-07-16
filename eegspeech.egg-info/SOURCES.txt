@@ -11,8 +11,13 @@ eegspeech.egg-info/top_level.txt
 eegspeech/app/__init__.py
 eegspeech/app/app.py
 eegspeech/app/cli.py
+eegspeech/app/healthcare_cli.py
+eegspeech/app/healthcare_vlm_app.py
 eegspeech/models/__init__.py
 eegspeech/models/dataset.py
 eegspeech/models/model.py
+eegspeech/models/natural_language_interface.py
+eegspeech/models/predictive_healthcare.py
 eegspeech/models/train.py
 eegspeech/models/utils.py
+eegspeech/models/vlm_integration.py

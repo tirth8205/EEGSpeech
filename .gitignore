@@ -11,6 +11,7 @@ build/
 # Virtual environment
 .venv/
 venv/
+env/
 
 # IDE and editor files
 .vscode/
@@ -22,16 +23,32 @@ venv/
 .DS_Store
 
 # Project-specific files
-# Model files
+# Model files (keep best_model.pth for demo)
 *.pth
-models/
+!best_model.pth
+!eeg_speech_classifier.pth
+# Ignore saved models directory (but not source code)
+/models/
 
 # Generated plots and outputs (except screenshots)
 *.png
 *.svg
 !screenshot/*.png  # Allow PNG files in screenshot/ directory
+!confusion_matrix.png  # Keep demo confusion matrix
 predictions.txt
 temp.edf
+
+# Healthcare analysis results
+healthcare_analysis_*/
+analysis_results/
+results/
+
+# Data files (except sample data)
+*.edf
+!test_generator_2.edf
+!eeg_recording/*.edf
+*.zip
+!test_generator_2_edfplus.zip
 
 # Dependency lock files (if you use them)
 Pipfile.lock
@@ -45,3 +62,21 @@ coverage/
 
 # Logs
 *.log
+
+# Claude settings
+.claude/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# Training history files
+training_history.png
+training_history.svg
+
+# Grad-CAM files
+grad_cam_*.png
+grad_cam_*.svg
+
+# Temporary files
+*.tmp
+*.temp

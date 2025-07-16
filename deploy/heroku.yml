@@ -1,0 +1,5 @@
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: streamlit run eegspeech/app/healthcare_vlm_app.py --server.port=$PORT --server.address=0.0.0.0

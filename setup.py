@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 setup(
     name="eegspeech",
-    version="1.1.0",
-    description="A lightweight brain-computer interface for decoding speech phonemes from EEG signals using deep learning",
+    version="2.0.0",
+    description="Advanced healthcare BCI with VLM integration for clinical EEG analysis and speech decoding",
     long_description=open("README.md").read() if open("README.md", errors="ignore") else "",
     long_description_content_type="text/markdown",
     author="Your Name",
@@ -29,6 +29,11 @@ setup(
         "pydeck>=0.9.0,<0.10.0",
         "requests>=2.32.0,<3.0.0",
         "jinja2>=3.1.0,<4.0.0",
+        "transformers>=4.36.0,<5.0.0",
+        "opencv-python>=4.8.0,<5.0.0",
+        "openai>=1.0.0,<2.0.0",
+        "accelerate>=0.25.0,<1.0.0",
+        "timm>=0.9.0,<1.0.0",
     ],
     extras_require={
         "dev": [
@@ -36,13 +41,21 @@ setup(
             "black>=24.0.0,<25.0.0",
             "flake8>=7.0.0,<8.0.0",
         ],
+        "vlm": [
+            "transformers>=4.36.0,<5.0.0",
+            "opencv-python>=4.8.0,<5.0.0",
+            "openai>=1.0.0,<2.0.0",
+            "accelerate>=0.25.0,<1.0.0",
+            "timm>=0.9.0,<1.0.0",
+        ],
     },
     entry_points={
         "console_scripts": [
             "eegspeech=eegspeech.app.cli:main",
+            "eegspeech-healthcare=eegspeech.app.healthcare_cli:main",
         ],
     },
-    python_requires=">=3.8,<3.11",
+    python_requires=">=3.8,<3.12",
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
